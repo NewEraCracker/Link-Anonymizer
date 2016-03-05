@@ -10,9 +10,9 @@ function linkanonymizer_info()
 	return array(
 		'name'       => 'Link Anonymizer',
 		'description'=> 'Anonymizes the links in all messages',
-		'website'    => 'http://mods.mybb.com/view/link-anonymizer',
+		'website'    => 'https://github.com/NewEraCracker/Link-Anonymizer',
 		'author'     => 'NewEraCracker',
-		'authorsite' => '',
+		'authorsite' => 'https://github.com/NewEraCracker',
 		'version'    => '1.5',
 		'guid'       => 'ef3f9596c24e4d7ca4f364f74c2fd12e'
 	);
