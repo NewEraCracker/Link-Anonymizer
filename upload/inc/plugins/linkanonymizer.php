@@ -33,7 +33,7 @@ function linkanonymizer_run($message)
 	global $mybb;
 	static $ignored_domains;
 
-	if(preg_match_all("@<a href=\"([^\"]+)@i", $message, $matches)) {
+	if(preg_match_all('@<a href="([^"]+)@i', $message, $matches)) {
 		// Build ignored domains only once
 		if(!is_array($ignored_domains)) {
 			$ignored_domains = array();
