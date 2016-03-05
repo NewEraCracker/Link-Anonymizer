@@ -14,7 +14,7 @@ if(defined('IN_MYBB')) {
 $mybb->input['url'] = str_replace(dec_to_utf8(8203), '', $mybb->input['url']);
 
 // Prevent search engines from even trying to index this page
-header('X-Robots-Tag: noindex, nofollow', true);
+header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet', true);
 
 // Redirect only if valid input is entered
 if(preg_match('/^(http|https|ftp|news){1}:\/\/[^\n\r]*$/', $mybb->input['url'])) {
