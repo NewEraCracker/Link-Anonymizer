@@ -1,0 +1,13 @@
+[b]Version 1.5.1[/b] (27th March 2016)
+- Disable search engine indexing of redirect.php page;
+- Strengthen URL validation. Deny URLs without host;
+- Make URL validation case insensitive.
+
+[b]Version 1.5[/b] (14th February 2014)
+- Removed anonym.to from redirect functionality as their uptime is not good.
+
+[b]Version 1.4[/b] (05th October 2013)
+- Fixed bugs.
+
+[b]Version 1.3[/b] (24th September 2013)
+- Public release.
