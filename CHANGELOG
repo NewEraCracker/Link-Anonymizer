@@ -1,3 +1,6 @@
+[b]Version 1.5.2[/b] (28th March 2016)
+- Overall optimizations.
+
 [b]Version 1.5.1[/b] (27th March 2016)
 - Disable search engine indexing of redirect.php page;
 - Strengthen URL validation. Deny URLs without host;

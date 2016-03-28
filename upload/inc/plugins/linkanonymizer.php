@@ -13,7 +13,7 @@ function linkanonymizer_info()
 		'website'    => 'https://github.com/NewEraCracker/Link-Anonymizer',
 		'author'     => 'NewEraCracker',
 		'authorsite' => 'https://github.com/NewEraCracker',
-		'version'    => '1.5.1',
+		'version'    => '1.5.2',
 		'guid'       => 'ef3f9596c24e4d7ca4f364f74c2fd12e'
 	);
 }
@@ -40,44 +40,41 @@ function linkanonymizer_run($message)
 
 			if($mybb->settings['cookiedomain']) {
 				// Add cookie domain to ignored domains
-				$ignored_domains = array_merge($ignored_domains, array($mybb->settings['cookiedomain']));
+				$ignored_domains[] = strtolower($mybb->settings['cookiedomain']);
 			}
 
-			$url = @parse_url($mybb->settings['bburl']);
+			$bbhost = @parse_url($mybb->settings['bburl'], PHP_URL_HOST);
 
-			if($url !== false && !empty($url['host'])) {
-				// Add forum domain to ignored domains
-				$ignored_domains = array_merge($ignored_domains, array($url['host']));
-			} else {
+			if(empty($bbhost)) {
 				// Bail out as we weren't able to fetch the required information
 				$ignored_domains = null;
 				return;
 			}
+
+			// Add forum domain to ignored domains
+			$ignored_domains[] = strtolower($bbhost);
 		}
 
-		$find_href = array();
-		$repl_href = array();
+		$find_href = $repl_href = array();
 
 		foreach($matches[1] as $rawurl) {
-			$url = @parse_url($rawurl);
+			$link_domain = @parse_url($rawurl, PHP_URL_HOST);
 
-			if($url !== false && !empty($url['host'])) {
-				$link_domain = strtolower($url['host']);
+			if(empty($link_domain)) {
+				continue;
+			}
 
-				// Ignore link if domain is whitelisted
-				foreach($ignored_domains as $ignored_domain) {
-					$ignored_domain = strtolower($ignored_domain);
+			$link_domain = strtolower($link_domain);
 
-					if(substr($ignored_domain, 0, 1) == '.') {
-						if($ignored_domain == substr(".{$link_domain}", 0 - strlen($ignored_domain))) {
-							continue 2;
-						}
-					} else if($ignored_domain == $link_domain) {
+			// Ignore link if domain is whitelisted
+			foreach($ignored_domains as $ignored_domain) {
+				if(substr($ignored_domain, 0, 1) == '.') {
+					if($ignored_domain == substr(".{$link_domain}", (0 - strlen($ignored_domain)))) {
 						continue 2;
 					}
+				} elseif($ignored_domain == $link_domain) {
+					continue 2;
 				}
-			} else {
-				continue;
 			}
 
 			// If we reach this, we must replace link
@@ -86,7 +83,7 @@ function linkanonymizer_run($message)
 			$repl_href[] = "<a href=\"{$replacement}\"";
 		}
 
-		if(sizeof($find_href)) {
+		if(count($find_href)) {
 			return str_replace($find_href, $repl_href, $message);
 		}
 	}
