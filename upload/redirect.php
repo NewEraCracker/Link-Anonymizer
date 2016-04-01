@@ -42,6 +42,15 @@ if(preg_match('@^(http|https|ftp|news){1}://[^\n\r]+$@i', $mybb->input['url'])) 
 	// Parse and output page
 	eval('$linkanonymizer .= "'.$templates->get('linkanonymizer').'";');
 	output_page($linkanonymizer);
+} else {
+	// Make safe for output
+	$linkanonymizer_data = array();
+	$linkanonymizer_data['bburl'] = htmlspecialchars_uni($mybb->settings['bburl']);
+
+	// A friendly error page
+	$lang->load('linkanonymizer');
+	$lang->linkanonymizer_error = $lang->sprintf($lang->linkanonymizer_error, "<br /><b><a href=\"{$linkanonymizer_data['bburl']}\">", '</a></b>');
+	error($lang->linkanonymizer_error, $lang->linkanonymizer);
 }
 
 die();

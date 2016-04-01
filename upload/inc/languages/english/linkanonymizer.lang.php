@@ -13,4 +13,5 @@ $l['linkanonymizer_ownrisk'] = 'Follow at your own risk!';
 $l['linkanonymizer_redirecting'] = 'Redirecting...';
 $l['linkanonymizer_cancel'] = 'Cancel';
 $l['linkanonymizer_continue'] = 'Continue';
+$l['linkanonymizer_error'] = 'An invalid link has been specified.{1}Click here to return to homepage{2}';
 ?>
