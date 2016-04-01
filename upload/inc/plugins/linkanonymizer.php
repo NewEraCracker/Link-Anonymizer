@@ -42,10 +42,10 @@ function linkanonymizer_activate()
 			</tr>
 			<tr class=\"tcat\">
 				<td style=\"text-align:right;width:50%\">
-					<strong><a href=\"{\$mybb->settings['bburl']}\">{\$lang->linkanonymizer_cancel}</a></strong>
+					<strong><a href=\"{\$linkanonymizer_data['bburl']}\">{\$lang->linkanonymizer_cancel}</a></strong>
 				</td>
 				<td style=\"text-align:left;width:50%\">
-					<strong><a href=\"{\$mybb->input['url']}\">{\$lang->linkanonymizer_continue} (<span class=\"delay\">5</span>)</a></strong>
+					<strong><a href=\"{\$linkanonymizer_data['url']}\">{\$lang->linkanonymizer_continue} (<span class=\"delay\">5</span>)</a></strong>
 				</td>
 			</tr>
 		</table>
@@ -62,7 +62,7 @@ function linkanonymizer_activate()
 					}
 					else
 					{
-						window.open(\"{\$mybb->input['url']}\", \"_parent\");
+						window.open(\"{\$linkanonymizer_data['urljs']}\", \"_parent\");
 					}
 				}
 				\$(document).ready(countdown);

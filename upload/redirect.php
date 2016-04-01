@@ -19,11 +19,14 @@ header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet', true);
 // Redirect only if valid input is entered
 if(preg_match('@^(http|https|ftp|news){1}://[^\n\r]+$@i', $mybb->input['url'])) {
 	// Make safe for output
-	$mybb->input['url'] = htmlspecialchars_uni($mybb->input['url']);
+	$linkanonymizer_data = array();
+	$linkanonymizer_data['bburl'] = htmlspecialchars_uni($mybb->settings['bburl']);
+	$linkanonymizer_data['url']   = htmlspecialchars_uni($mybb->input['url']);
+	$linkanonymizer_data['urljs'] = preg_replace_callback('|[^a-z0-9@#%*/+=.,:;_-]|i', create_function('$m', 'return "\\x" . @sprintf("%02x", ord($m[0]));'), $mybb->input['url']);
 
 	// Load and parse language
 	$lang->load('linkanonymizer');
-	$lang->linkanonymizer_leaving = $lang->sprintf($lang->linkanonymizer_leaving, $mybb->settings['bbname'], $mybb->input['url']);
+	$lang->linkanonymizer_leaving = $lang->sprintf($lang->linkanonymizer_leaving, $mybb->settings['bbname'], $linkanonymizer_data['url']);
 
 	// I love MyBB
 	add_breadcrumb($lang->linkanonymizer);
