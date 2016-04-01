@@ -18,7 +18,19 @@ header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet', true);
 
 // Redirect only if valid input is entered
 if(preg_match('@^(http|https|ftp|news){1}://[^\n\r]+$@i', $mybb->input['url'])) {
-	header('Location: ' . $mybb->input['url'], true, 303);
+	// Make safe for output
+	$mybb->input['url'] = htmlspecialchars_uni($mybb->input['url']);
+
+	// Load and parse language
+	$lang->load('linkanonymizer');
+	$lang->linkanonymizer_leaving = $lang->sprintf($lang->linkanonymizer_leaving, $mybb->settings['bbname'], $mybb->input['url']);
+
+	// I love MyBB
+	add_breadcrumb($lang->linkanonymizer);
+
+	// Parse and output page
+	eval('$linkanonymizer .= "'.$templates->get('linkanonymizer').'";');
+	output_page($linkanonymizer);
 }
 
 die();

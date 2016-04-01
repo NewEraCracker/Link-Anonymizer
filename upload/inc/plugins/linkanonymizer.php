@@ -13,19 +13,87 @@ function linkanonymizer_info()
 		'website'    => 'https://github.com/NewEraCracker/Link-Anonymizer',
 		'author'     => 'NewEraCracker',
 		'authorsite' => 'https://github.com/NewEraCracker',
-		'version'    => '1.5.2',
+		'version'    => '1.8.0',
 		'guid'       => 'ef3f9596c24e4d7ca4f364f74c2fd12e'
 	);
 }
 
 function linkanonymizer_activate()
 {
-	// Intentionally left empty
+	global $db;
+	require_once MYBB_ROOT . 'inc/adminfunctions_templates.php';
+
+	$templates = array();
+	$templates[] = array(
+		'title' => 'linkanonymizer',
+		'template' => "<html>
+	<head>
+		<title>{\$lang->linkanonymizer}</title>
+		{\$headerinclude}
+	</head>
+	<body>
+		{\$header}
+		<table border=\"0\" cellspacing=\"0\" cellpadding=\"5\" class=\"tborder\">
+			<tr>
+				<td class=\"thead\" colspan=\"2\"><strong>{\$lang->linkanonymizer_redirecting}</strong></td>
+			</tr>
+			<tr>
+				<td colspan=\"2\">{\$lang->linkanonymizer_leaving}<br />{\$lang->linkanonymizer_ownrisk}</td>
+			</tr>
+			<tr class=\"tcat\">
+				<td style=\"text-align:right;width:50%\">
+					<strong><a href=\"{\$mybb->settings['bburl']}\">{\$lang->linkanonymizer_cancel}</a></strong>
+				</td>
+				<td style=\"text-align:left;width:50%\">
+					<strong><a href=\"{\$mybb->input['url']}\">{\$lang->linkanonymizer_continue} (<span class=\"delay\">5</span>)</a></strong>
+				</td>
+			</tr>
+		</table>
+		{\$footer}
+		<script>
+			<!--
+				var delayCount = parseInt(\"5\") + 1,
+				countdown = function()
+				{
+					if (--delayCount > -1)
+					{
+						\$('.delay').text(delayCount);
+						setTimeout(countdown, 1000);
+					}
+					else
+					{
+						window.open(\"{\$mybb->input['url']}\", \"_parent\");
+					}
+				}
+				\$(document).ready(countdown);
+			//-->
+		</script>
+	</body>
+</html>"
+	);
+	foreach($templates as $template)
+	{
+		$insert = array(
+			'title' => $db->escape_string($template['title']),
+			'template' => $db->escape_string($template['template']),
+			'sid' => '-1',
+			'version' => '1800',
+			'dateline' => TIME_NOW
+		);
+		$db->insert_query('templates', $insert);
+	}
 }
 
 function linkanonymizer_deactivate()
 {
-	// Intentionally left empty
+	global $db;
+	require_once MYBB_ROOT . 'inc/adminfunctions_templates.php';
+
+	$templates = array(
+		'linkanonymizer'
+	);
+	$templates = "'" . implode("','", $templates) . "'";
+	$db->delete_query('templates', "title IN ({$templates})");
 }
 
 function linkanonymizer_run($message)
