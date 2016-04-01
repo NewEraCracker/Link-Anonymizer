@@ -1,4 +1,12 @@
 <?php
+/**
+ * Link Anonymizer
+ *
+ * Author: NewEraCracker
+ * License: Public Domain
+ *
+ * https://github.com/NewEraCracker/Link-Anonymizer
+ */
 if(defined('IN_MYBB')) {
 	die('This file is not meant to be run from MyBB.');
 } else {
