@@ -19,7 +19,7 @@ if(defined('IN_MYBB')) {
  @see http://dev.mybb.com/issues/409
  @see http://community.mybb.com/thread-43152.html
 */
-$mybb->input['url'] = str_replace(dec_to_utf8(8203), '', $mybb->input['url']);
+$mybb->input['url'] = str_replace(dec_to_utf8(8203), '', (string)$mybb->input['url']);
 
 // Prevent search engines from even trying to index this page
 header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet', true);
