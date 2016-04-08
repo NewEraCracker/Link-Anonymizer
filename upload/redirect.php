@@ -25,8 +25,9 @@ $mybb->input['url'] = str_replace(dec_to_utf8(8203), '', (string)$mybb->input['u
 header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet', true);
 
 // Redirect only if valid input is entered
-if(preg_match('@^(http|https|ftp|news){1}://[^\n\r]+$@i', $mybb->input['url'])) {
-	header('Location: ' . $mybb->input['url'], true, 303);
+$matches = array();
+if(preg_match('@^(http|https|ftp|news){1}://[^\x00-\x1f\x7f]+$@i', $mybb->input['url'], $matches)) {
+	header('Location: ' . $matches[0], true, 303);
 }
 
 die();
