@@ -25,12 +25,13 @@ $mybb->input['url'] = str_replace(dec_to_utf8(8203), '', (string)$mybb->input['u
 header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet', true);
 
 // Redirect only if valid input is entered
-if(preg_match('@^(http|https|ftp|news){1}://[^\n\r]+$@i', $mybb->input['url'])) {
+$matches = array();
+if(preg_match('@^(http|https|ftp|news){1}://[^\x00-\x1f\x7f]+$@i', $mybb->input['url'], $matches)) {
 	// Make safe for output
 	$linkanonymizer_data = array();
 	$linkanonymizer_data['bburl'] = htmlspecialchars_uni($mybb->settings['bburl']);
-	$linkanonymizer_data['url']   = htmlspecialchars_uni($mybb->input['url']);
-	$linkanonymizer_data['urljs'] = preg_replace_callback('|[^a-z0-9@#%*/+=.,:;_-]|i', create_function('$m', 'return "\\x" . @sprintf("%02x", ord($m[0]));'), $mybb->input['url']);
+	$linkanonymizer_data['url']   = htmlspecialchars_uni($matches[0]);
+	$linkanonymizer_data['urljs'] = preg_replace_callback('|[^a-z0-9@#%*/+=.,:;_-]|i', create_function('$m', 'return "\\x" . @sprintf("%02x", ord($m[0]));'), $matches[0]);
 
 	// Load and parse language
 	$lang->load('linkanonymizer');
