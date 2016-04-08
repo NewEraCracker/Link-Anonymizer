@@ -1,3 +1,7 @@
+[b]Version 1.5.3[/b] (08th April 2016)
+- Further security improvement;
+- Forbid ASCII control chars from appearing in URL.
+
 [b]Version 1.5.2[/b] (28th March 2016)
 - Overall optimizations.
 
