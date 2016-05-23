@@ -11,6 +11,7 @@ if(!defined('IN_MYBB')) {
 	die('Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.');
 }
 
+$plugins->add_hook('build_friendly_wol_location_end', 'linkanonymizer_hide');
 $plugins->add_hook('parse_message_end', 'linkanonymizer_run');
 
 function linkanonymizer_info()
@@ -21,7 +22,7 @@ function linkanonymizer_info()
 		'website'    => 'https://github.com/NewEraCracker/Link-Anonymizer',
 		'author'     => 'NewEraCracker',
 		'authorsite' => 'https://github.com/NewEraCracker',
-		'version'    => '1.5.3',
+		'version'    => '1.5.4',
 		'guid'       => 'ef3f9596c24e4d7ca4f364f74c2fd12e'
 	);
 }
@@ -34,6 +35,21 @@ function linkanonymizer_activate()
 function linkanonymizer_deactivate()
 {
 	// Intentionally left empty
+}
+
+function linkanonymizer_hide(&$plugin_array)
+{
+	global $mybb, $lang;
+
+	if(!is_array($plugin_array) || !isset($plugin_array['user_activity'], $plugin_array['user_activity']['location'])) {
+		// This should never happen, but better play safe so it doesn't break in case API changes
+		return;
+	}
+
+	if(empty($plugin_array['location_name']) && strpos($plugin_array['user_activity']['location'], "/redirect.php?") !== false) {
+		// Protect users privacy by concealing their true location
+		$plugin_array['location_name'] = $lang->sprintf($lang->unknown_location, $mybb->settings['bburl']);
+	}
 }
 
 function linkanonymizer_run($message)
