@@ -53,6 +53,5 @@ if(preg_match('@^(http|https|ftp|news){1}://[^\x00-\x1f\x7f]+$@i', $mybb->input[
 	$lang->linkanonymizer_error = $lang->sprintf($lang->linkanonymizer_error, "<br /><b><a href=\"{$linkanonymizer_data['bburl']}\">", '</a></b>');
 	error($lang->linkanonymizer_error, $lang->linkanonymizer);
 }
-
 die();
 ?>

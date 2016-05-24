@@ -1,3 +1,6 @@
+[b]Version 1.5.4[/b] (24th May 2016)
+- Prevent information disclosure on "Who's Online" page.
+
 [b]Version 1.5.3[/b] (08th April 2016)
 - Further security improvement;
 - Forbid ASCII control chars from appearing in URL.

@@ -116,7 +116,8 @@ function linkanonymizer_hide(&$plugin_array)
 
 	if(empty($plugin_array['location_name']) && strpos($plugin_array['user_activity']['location'], "/redirect.php?") !== false) {
 		// Protect users privacy by concealing their true location
-		$plugin_array['location_name'] = $lang->sprintf($lang->unknown_location, $mybb->settings['bburl']);
+		$plugin_array['user_activity']['location'] = $mybb->settings['bburl'] . '/redirect.php';
+		$plugin_array['location_name'] = $lang->sprintf($lang->unknown_location, $plugin_array['user_activity']['location']);
 	}
 }
 
@@ -170,7 +171,7 @@ function linkanonymizer_run($message)
 			}
 
 			// If we reach this, we must replace link
-			$replacement = htmlspecialchars_uni($mybb->settings['bburl'].'/redirect.php?url='.urlencode(unhtmlentities($rawurl)));
+			$replacement = htmlspecialchars_uni($mybb->settings['bburl'] . '/redirect.php?url=' . urlencode(unhtmlentities($rawurl)));
 			$find_href[] = "<a href=\"{$rawurl}\"";
 			$repl_href[] = "<a href=\"{$replacement}\"";
 		}
