@@ -1,3 +1,6 @@
+[b]Version 1.5.5[/b] (15th June 2016)
+- Send Cache-Control and Pragma headers to disable caching.
+
 [b]Version 1.5.4[/b] (24th May 2016)
 - Prevent information disclosure on "Who's Online" page.
 
