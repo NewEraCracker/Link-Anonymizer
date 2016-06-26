@@ -47,14 +47,14 @@ function linkanonymizer_activate()
 				<td class=\"thead\" colspan=\"2\"><strong>{\$lang->linkanonymizer_redirecting}</strong></td>
 			</tr>
 			<tr>
-				<td colspan=\"2\">{\$lang->linkanonymizer_leaving}<br />{\$lang->linkanonymizer_ownrisk}</td>
+				<td class=\"trow2 post_content\" colspan=\"2\">{\$lang->linkanonymizer_leaving}<br />{\$lang->linkanonymizer_ownrisk}</td>
 			</tr>
 			<tr class=\"tcat\">
 				<td style=\"text-align:right;width:50%\">
 					<strong><a href=\"{\$linkanonymizer_data['bburl']}\" onclick=\"return window.history.go(-1);\">{\$lang->linkanonymizer_cancel}</a></strong>
 				</td>
 				<td style=\"text-align:left;width:50%\">
-					<strong><a href=\"{\$linkanonymizer_data['url']}\">{\$lang->linkanonymizer_continue} (<span class=\"delay\">5</span>)</a></strong>
+					<strong><a href=\"{\$linkanonymizer_data['url']}\">{\$lang->linkanonymizer_continue} (<span id=\"redirdelay\">5</span>)</a></strong>
 				</td>
 			</tr>
 		</table>
@@ -66,7 +66,7 @@ function linkanonymizer_activate()
 				{
 					if (--delayCount > -1)
 					{
-						\$('.delay').text(delayCount);
+						document.getElementById(\"redirdelay\").innerHTML = delayCount;
 						setTimeout(countdown, 1000);
 					}
 					else
@@ -74,7 +74,7 @@ function linkanonymizer_activate()
 						window.open(\"{\$linkanonymizer_data['urljs']}\", \"_parent\");
 					}
 				}
-				\$(document).ready(countdown);
+				window.addEventListener(\"load\", countdown);
 			//-->
 		</script>
 	</body>
