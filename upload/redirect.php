@@ -14,17 +14,23 @@ if(defined('IN_MYBB')) {
 	require_once('./global.php');
 }
 
+// Send Cache-Control and Pragma headers to disable caching
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0', true);
+header('Pragma: no-cache', true);
+
+// Prevent search engines from even trying to index this page
+if($session->is_spider) {
+	header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet', true, 403);
+	$mybb->input['ajax'] = true; error_no_permission(); exit();
+}
+header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet', true);
+
 /*
  Dirty hack
  @see http://dev.mybb.com/issues/409
  @see http://community.mybb.com/thread-43152.html
 */
 $mybb->input['url'] = str_replace(dec_to_utf8(8203), '', (string)$mybb->input['url']);
-
-// Prevent search engines from even trying to index this page
-header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0', true);
-header('Pragma: no-cache', true);
-header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet', true);
 
 // Redirect only if valid input is entered
 $matches = array();
