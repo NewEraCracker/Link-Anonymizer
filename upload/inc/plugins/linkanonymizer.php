@@ -44,24 +44,23 @@ function linkanonymizer_activate()
 		{\$header}
 		<table border=\"0\" cellspacing=\"0\" cellpadding=\"5\" class=\"tborder\">
 			<tr>
-				<td class=\"thead\" colspan=\"2\"><strong>{\$lang->linkanonymizer_redirecting}</strong></td>
+				<td class=\"thead\"><strong>{\$lang->linkanonymizer_redirecting}</strong></td>
 			</tr>
 			<tr>
-				<td class=\"trow2 post_content\" colspan=\"2\">{\$lang->linkanonymizer_leaving}<br />{\$lang->linkanonymizer_ownrisk}</td>
+				<td class=\"trow2 post_content\">{\$lang->linkanonymizer_leaving}<br />{\$lang->linkanonymizer_ownrisk}</td>
 			</tr>
-			<tr class=\"tcat\">
-				<td style=\"text-align:right;width:50%\">
-					<strong><a href=\"{\$linkanonymizer_data['bburl']}\" onclick=\"return window.history.go(-1);\">{\$lang->linkanonymizer_cancel}</a></strong>
-				</td>
-				<td style=\"text-align:left;width:50%\">
-					<strong><a href=\"{\$linkanonymizer_data['url']}\">{\$lang->linkanonymizer_continue} (<span id=\"redirdelay\">5</span>)</a></strong>
+			<tr>
+				<td class=\"tcat\" style=\"text-align:center;\">
+					<button type=\"button\" href=\"{\$linkanonymizer_data['bburl']}\" onclick='return window.location.href=\"{\$linkanonymizer_data['bburl']}\";'>{\$lang->linkanonymizer_cancel}</button>
+					&nbsp;&nbsp;
+					<button type=\"button\" href=\"{\$linkanonymizer_data['url']}\" onclick='return window.location.href=\"{\$linkanonymizer_data['urljs']}\";'>{\$lang->linkanonymizer_continue} (<span id=\"redirdelay\">10</span>)</button>
 				</td>
 			</tr>
 		</table>
 		{\$footer}
-		<script>
+		<script type=\"text/javascript\">
 			<!--
-				var delayCount = parseInt(\"5\") + 1,
+				var delayCount = (10 + 1),
 				countdown = function()
 				{
 					if (--delayCount > -1)
@@ -75,7 +74,7 @@ function linkanonymizer_activate()
 					}
 				}
 				window.addEventListener(\"load\", countdown);
-			//-->
+			// -->
 		</script>
 	</body>
 </html>"
