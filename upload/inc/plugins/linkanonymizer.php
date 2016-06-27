@@ -22,7 +22,7 @@ function linkanonymizer_info()
 		'website'    => 'https://github.com/NewEraCracker/Link-Anonymizer',
 		'author'     => 'NewEraCracker',
 		'authorsite' => 'https://github.com/NewEraCracker',
-		'version'    => '1.8.0',
+		'version'    => '1.6.0',
 		'guid'       => 'ef3f9596c24e4d7ca4f364f74c2fd12e'
 	);
 }
