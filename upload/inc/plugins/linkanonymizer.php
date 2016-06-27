@@ -113,10 +113,12 @@ function linkanonymizer_hide(&$plugin_array)
 		return;
 	}
 
+	$lang->load('linkanonymizer');
+
 	if(empty($plugin_array['location_name']) && strpos($plugin_array['user_activity']['location'], "/redirect.php?") !== false) {
 		// Protect users privacy by concealing their true location
 		$plugin_array['user_activity']['location'] = $mybb->settings['bburl'] . '/redirect.php';
-		$plugin_array['location_name'] = $lang->sprintf($lang->unknown_location, $plugin_array['user_activity']['location']);
+		$plugin_array['location_name'] = $lang->linkanonymizer;
 	}
 }
 

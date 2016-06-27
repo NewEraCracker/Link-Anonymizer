@@ -21,7 +21,7 @@ header('Pragma: no-cache', true);
 // Prevent search engines from even trying to index this page
 if($session->is_spider) {
 	header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet', true, 403);
-	$mybb->input['ajax'] = true; error_no_permission(); exit();
+	$mybb->input['ajax'] = 1; error_no_permission(); exit();
 }
 header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet', true);
 
@@ -49,7 +49,7 @@ if(preg_match('@^(http|https|ftp|news){1}://[^\x00-\x1f\x7f]+$@i', $mybb->input[
 	add_breadcrumb($lang->linkanonymizer);
 
 	// Parse and output page
-	eval('$linkanonymizer .= "'.$templates->get('linkanonymizer').'";');
+	eval('$linkanonymizer = "'.$templates->get('linkanonymizer').'";');
 	output_page($linkanonymizer);
 } else {
 	// Make safe for output
