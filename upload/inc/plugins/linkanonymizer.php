@@ -22,7 +22,7 @@ function linkanonymizer_info()
 		'website'    => 'https://github.com/NewEraCracker/Link-Anonymizer',
 		'author'     => 'NewEraCracker',
 		'authorsite' => 'https://github.com/NewEraCracker',
-		'version'    => '1.6.0',
+		'version'    => '1.8.0',
 		'guid'       => 'ef3f9596c24e4d7ca4f364f74c2fd12e'
 	);
 }
@@ -65,7 +65,7 @@ function linkanonymizer_activate()
 				{
 					if (--delayCount > -1)
 					{
-						document.getElementById(\"redirdelay\").innerHTML = delayCount;
+						\$('#redirdelay').text(delayCount);
 						setTimeout(countdown, 1000);
 					}
 					else
@@ -73,8 +73,8 @@ function linkanonymizer_activate()
 						window.open(\"{\$linkanonymizer_data['urljs']}\", \"_parent\");
 					}
 				}
-				window.addEventListener(\"load\", countdown);
-			// -->
+				\$(document).ready(countdown);
+			//-->
 		</script>
 	</body>
 </html>"
