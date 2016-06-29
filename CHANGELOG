@@ -1,3 +1,7 @@
+[b]Version 1.8.0[/b] (29th June 2016)
+- Template for the "redirect.php" page edited to work on MyBB 1.8.
+  On upgrades: Plugin MUST be manually deactivated and reactivated to upgrade template!
+
 [b]Version 1.6.0[/b] (29th June 2016)
 - New template for the "redirect.php" page. It now asks for confirmation before redirecting.
   On upgrades: Plugin MUST be manually deactivated and reactivated to install template!
