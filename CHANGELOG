@@ -1,3 +1,6 @@
+[b]Version 1.5.6[/b] (29th June 2016)
+- Forcefully prevent extremelly disrespectful spiders from indexing and following redirect page.
+
 [b]Version 1.5.5[/b] (15th June 2016)
 - Send Cache-Control and Pragma headers to disable caching.
 
