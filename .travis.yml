@@ -2,5 +2,5 @@ php:
   - 5.6
   - 7.0
 
-before_script:
+script:
   - if find . -name "*.php" -exec php -l '{}' 2>&1 \; | grep -v "No syntax errors detected"; then exit 1; fi
