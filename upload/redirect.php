@@ -18,6 +18,9 @@ if(defined('IN_MYBB')) {
 header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0', true);
 header('Pragma: no-cache', true);
 
+// Disable Referrer
+header('Referrer-Policy: no-referrer', true);
+
 // Prevent search engines from even trying to index this page
 if($session->is_spider) {
 	header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet', true, 403);
